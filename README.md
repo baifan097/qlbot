@@ -28,16 +28,16 @@ wget https://raw.githubusercontent.com/curtinlv/gd/main/install.sh && bash insta
 ``` bash
 # 操作环境，容器内执行。如果一键安装完成，就不用执行这一块。
 # 包依赖
-apk add zlib zlib-dev libjpeg-turbo libjpeg-turbo-dev gcc python3-dev libffi-dev musl-dev linux-headers
+apk add zlib zlib-dev libjpeg-turbo libjpeg-turbo-dev gcc python3-dev libffi-dev musl-dev linux-headers nano
 
 # 模块依赖
 pip3 install qrcode==7.3.1 Telethon==1.24.0 requests==2.27.1 Pillow==9.0.0 python-socks==1.2.4 async_timeout==4.0.2 prettytable==3.0.0
 
 # 拉取jbot主要代码
-cd /ql/repo && git clone https://github.com/curtinlv/gd.git
-cp -a /ql/repo/gd/* /ql/jbot && cp -a /ql/jbot/conf/* /ql/config 
-cp -a /ql/jbot/jk_script/* /ql/scripts
-mkdir /ql/log/bot
+cd /ql/data/repo && git clone https://github.com/curtinlv/gd.git
+cp -a /ql/data/repo/gd/* /ql/data/jbot && cp -a /ql/data/jbot/conf/* /ql/data/config 
+cp -a /ql/data/jbot/jk_script/* /ql/data/scripts
+mkdir /ql/data/log/bot
 
 ```
 
@@ -49,11 +49,11 @@ mkdir /ql/log/bot
 # 操作环境，容器内:
 # 机器人登录相关参数，存放路径：
 ## 填写参考：https://raw.githubusercontent.com/curtinlv/gd/main/conf/bot.json
-vi /ql/config/bot.json
+nano /ql/data/config/bot.json
 
 # 监控频道相关参数，存放路径：
 ## 填写参考：https://raw.githubusercontent.com/curtinlv/gd/main/conf/diybotset.json
-vi /ql/config/diybotset.json
+nano /ql/data/config/diybotset.json
 
 ```
 
@@ -64,10 +64,10 @@ vi /ql/config/diybotset.json
 ```bash
 # 操作环境，容器内:
 ## 删除历史登录session
-rm -f /ql/config/user.session
+rm -f /ql/data/config/user.session
 
 # 首次启动，按照提示登录tg，填手机号格式0086xxxxxxxx
-cd /ql
+cd /ql/data
 python3 -m jbot
 
 ```
@@ -78,11 +78,11 @@ python3 -m jbot
 
 ```bash
 # 通过pm2 后台启动，除了登录验证外，建议使用pm2启动机器人
-cd /ql/jbot/
+cd /ql/data/jbot/
 pm2 start ecosystem.config.js #第一次启动是这样启动，后续启动参考底部相关命令
 
 # 查看日志：看看有没有报错。
-tail -100f /ql/log/bot/run.log
+tail -100f /ql/data/log/bot/run.log
 #终止查看日志 按 Ctrl+C
 
 
@@ -142,21 +142,21 @@ pm2 restart jbot
 首次更新方式：
 1、以发送机器人命令方式：
 # 下载自定义监控配置文件 jk.json
-/cmd cd /ql/config && wget https://git.metauniverse-cn.com/https://raw.githubusercontent.com/curtinlv/gd/main/conf/jk.json
+/cmd cd /ql/data/config && wget https://git.metauniverse-cn.com/https://raw.githubusercontent.com/curtinlv/gd/main/conf/jk.json
 # 更新user.py
-/cmd cd /ql/jbot/user && rm -f user.py  && wget https://git.metauniverse-cn.com/https://raw.githubusercontent.com/curtinlv/gd/main/user/user.py
+/cmd cd /ql/data/jbot/user && rm -f user.py  && wget https://git.metauniverse-cn.com/https://raw.githubusercontent.com/curtinlv/gd/main/user/user.py
 # 更新 utils.py
-/cmd cd /ql/jbot/diy && rm -f utils.py  && wget https://git.metauniverse-cn.com/https://raw.githubusercontent.com/curtinlv/gd/main/diy/utils.py
+/cmd cd /ql/data/jbot/diy && rm -f utils.py  && wget https://git.metauniverse-cn.com/https://raw.githubusercontent.com/curtinlv/gd/main/diy/utils.py
 # 重启机器人生效
 /restart
 
 2.ssh进入容器方式：
 # 下载自定义监控配置文件 jk.json
-cd /ql/repo/gd && git pull  && cp -a /ql/repo/gd/conf/jk.json /ql/config
+cd /ql/data/repo/gd && git pull  && cp -a /ql/data/repo/gd/conf/jk.json /ql/data/config
 # 更新user.py
-rm -f /ql/jbot/user/user.py && cp -a /ql/repo/gd/user/user.py /ql/jbot/user/user.py
+rm -f /ql/data/jbot/user/user.py && cp -a /ql/data/repo/gd/user/user.py /ql/data/jbot/user/user.py
 # 更新 utils.py
-rm -f /ql/jbot/diy/utils.py && cp -a /ql/repo/gd/diy/utils.py /ql/jbot/diy/utils.py
+rm -f /ql/data/jbot/diy/utils.py && cp -a /ql/data/repo/gd/diy/utils.py /ql/data/jbot/diy/utils.py
 # 重启机器人生效
 pm2 restart jbot
 
@@ -180,27 +180,27 @@ PS：后续只需修改 jk.json 配置文件，自己定义变量监控和应对
   #停止机器人
   pm2 stop jbot
   #更新代码
-  rm -rf /ql/repo/gd
-  cd /ql/repo/ && git clone https://git.metauniverse-cn.com/https://github.com/curtinlv/gd.git
-  rm -rf /ql/jbot/*
-  cp -a /ql/repo/gd/* /ql/jbot/
+  rm -rf /ql/data/repo/gd
+  cd /ql/data/repo/ && git clone https://git.metauniverse-cn.com/https://github.com/curtinlv/gd.git
+  rm -rf /ql/data/jbot/*
+  cp -a /ql/data/repo/gd/* /ql/data/jbot/
   #启动机器人
   pm2 start jbot
   
   #【更新方法2】发给机器人指令, 这是一行命令，整行复制，不能换行！
-  /cmd rm -rf /ql/repo/gd && cd /ql/repo/ && git clone https://git.metauniverse-cn.com/https://github.com/curtinlv/gd.git && pm2 stop jbot ; rm -rf /ql/jbot/* && cp -a /ql/repo/gd/* /ql/jbot/ ; pm2 start jbot
+  /cmd rm -rf /ql/data/repo/gd && cd /ql/data/repo/ && git clone https://git.metauniverse-cn.com/https://github.com/curtinlv/gd.git && pm2 stop jbot ; rm -rf /ql/data/jbot/* && cp -a /ql/data/repo/gd/* /ql/data/jbot/ ; pm2 start jbot
   
   #适配青龙，以防重启后失效
-  rm -rf /ql/repo/dockerbot
-  mkdir /ql/repo/dockerbot
-  ln -sf /ql/repo/gd /ql/repo/dockerbot/jbot
-  echo 'apk add zlib zlib-dev libjpeg-turbo libjpeg-turbo-dev gcc python3-dev libffi-dev musl-dev linux-headers' >>/ql/config/extra.sh
-  echo 'pip3 install qrcode==7.3.1 Telethon==1.24.0 requests==2.27.1 Pillow==9.0.0 python-socks==1.2.4 async_timeout==4.0.2 prettytable==3.0.0' >>/ql/config/extra.sh
-  echo 'cd /ql/jbot  && pm2 start ecosystem.config.js' >>/ql/config/extra.sh
-  echo 'cd /ql/ && pm2 start jbot' >>/ql/config/extra.sh
+  rm -rf /ql/data/repo/dockerbot
+  mkdir /ql/data/repo/dockerbot
+  ln -sf /ql/data/repo/gd /ql/data/repo/dockerbot/jbot
+  echo 'apk add zlib zlib-dev libjpeg-turbo libjpeg-turbo-dev gcc python3-dev libffi-dev musl-dev linux-headers' >>/ql/data/config/extra.sh
+  echo 'pip3 install qrcode==7.3.1 Telethon==1.24.0 requests==2.27.1 Pillow==9.0.0 python-socks==1.2.4 async_timeout==4.0.2 prettytable==3.0.0' >>/ql/data/config/extra.sh
+  echo 'cd /ql/data/jbot  && pm2 start ecosystem.config.js' >>/ql/data/config/extra.sh
+  echo 'cd /ql/data/ && pm2 start jbot' >>/ql/data/config/extra.sh
   
   #2.12新版路径临时解决方法
-  ln -sf /ql/data/scripts /ql/
+  ln -sf /ql/data/data/scripts /ql/data/
   
   ```
 
@@ -215,10 +215,10 @@ PS：后续只需修改 jk.json 配置文件，自己定义变量监控和应对
   #【更新方法1】进入容器：
   docker exec -it qinglong /bin/bash
   # 直接复制执行，这是一条命令，不能换行。
-  rm -rf /ql/repo/gd && cd /ql/repo/ && git clone https://git.metauniverse-cn.com/https://github.com/curtinlv/gd.git && pm2 stop jbot ; rm -rf /ql/jbot/* && cp -a /ql/repo/gd/* /ql/jbot/ ; pm2 start jbot
+  rm -rf /ql/data/repo/gd && cd /ql/data/repo/ && git clone https://git.metauniverse-cn.com/https://github.com/curtinlv/gd.git && pm2 stop jbot ; rm -rf /ql/data/jbot/* && cp -a /ql/data/repo/gd/* /ql/data/jbot/ ; pm2 start jbot
   
   #【更新方法2】发给机器人指令, 这是一行命令，整行复制，不能换行！
-  /cmd rm -rf /ql/repo/gd && cd /ql/repo/ && git clone https://git.metauniverse-cn.com/https://github.com/curtinlv/gd.git && pm2 stop jbot ; rm -rf /ql/jbot/* && cp -a /ql/repo/gd/* /ql/jbot/ ; pm2 start jbot
+  /cmd rm -rf /ql/data/repo/gd && cd /ql/data/repo/ && git clone https://git.metauniverse-cn.com/https://github.com/curtinlv/gd.git && pm2 stop jbot ; rm -rf /ql/data/jbot/* && cp -a /ql/data/repo/gd/* /ql/data/jbot/ ; pm2 start jbot
   
   ```
 
@@ -230,10 +230,10 @@ PS：后续只需修改 jk.json 配置文件，自己定义变量监控和应对
   #本地执行
   bash update.sh
   # 一键更新
-  cd /ql && wget https://raw.githubusercontent.com/curtinlv/gd/main/update.sh && nohup bash update.sh 2>&1 >/ql/log/bot/up.log &
+  cd /ql/data && wget https://raw.githubusercontent.com/curtinlv/gd/main/update.sh && nohup bash update.sh 2>&1 >/ql/data/log/bot/up.log &
   
   #查看更新日志
-  tail -100f /ql/log/bot/up.log
+  tail -100f /ql/data/log/bot/up.log
   #取消查看日志
   Ctrl+C
   ```
@@ -247,7 +247,7 @@ PS：后续只需修改 jk.json 配置文件，自己定义变量监控和应对
   /upgd
   
   或一键更新
-  cd /ql && rm -f update.sh* && wget -q https://git.metauniverse-cn.com/https://raw.githubusercontent.com/curtinlv/gd/main/update.sh && nohup bash update.sh 2>&1 >/ql/log/bot/up.log &
+  cd /ql/data && rm -f update.sh* && wget -q https://git.metauniverse-cn.com/https://raw.githubusercontent.com/curtinlv/gd/main/update.sh && nohup bash update.sh 2>&1 >/ql/data/log/bot/up.log &
   ```
 
   
