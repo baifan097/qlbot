@@ -20,7 +20,7 @@ docker exec -it qinglong /bin/bash
 - [x] 一键安装
 
 ```
-wget https://raw.githubusercontent.com/curtinlv/gd/main/install.sh && bash install.sh
+wget https://raw.githubusercontent.com/gd0772/qlbot/main/install.sh && bash install.sh
 ```
 
 - [ ] 人工安装
@@ -34,7 +34,7 @@ apk add zlib zlib-dev libjpeg-turbo libjpeg-turbo-dev gcc python3-dev libffi-dev
 pip3 install qrcode==7.3.1 Telethon==1.24.0 requests==2.27.1 Pillow==9.0.0 python-socks==1.2.4 async_timeout==4.0.2 prettytable==3.0.0
 
 # 拉取jbot主要代码
-cd /ql/data/repo && git clone https://github.com/curtinlv/gd.git
+cd /ql/data/repo && git clone https://github.com/gd0772/qlbot/gd.git
 cp -a /ql/data/repo/gd/* /ql/data/jbot && cp -a /ql/data/jbot/conf/* /ql/data/config 
 cp -a /ql/data/jbot/jk_script/* /ql/data/scripts
 mkdir /ql/data/log/bot
@@ -48,11 +48,11 @@ mkdir /ql/data/log/bot
 ```bash
 # 操作环境，容器内:
 # 机器人登录相关参数，存放路径：
-## 填写参考：https://raw.githubusercontent.com/curtinlv/gd/main/conf/bot.json
+## 填写参考：https://raw.githubusercontent.com/gd0772/qlbot/main/conf/bot.json
 nano /ql/data/config/bot.json
 
 # 监控频道相关参数，存放路径：
-## 填写参考：https://raw.githubusercontent.com/curtinlv/gd/main/conf/diybotset.json
+## 填写参考：https://raw.githubusercontent.com/gd0772/qlbot/main/conf/diybotset.json
 nano /ql/data/config/diybotset.json
 
 ```
@@ -72,7 +72,7 @@ python3 -m jbot
 
 ```
 
-![图1：首次登录授权个人tg](https://raw.githubusercontent.com/curtinlv/gd/main/img/p1.png)
+![图1：首次登录授权个人tg](https://raw.githubusercontent.com/gd0772/qlbot/main/img/p1.png)
 
 ### ∆出现以上提示，即登录成功，按`ctrl+c `终止，继续以下操作：
 
@@ -92,15 +92,15 @@ tail -100f /ql/data/log/bot/run.log
 
 - [x] 如tg机器人给你发以下信息，证明你填写的机器人参数是正确的∆。
 
-![图2：完成登录，tg机器人发通知](https://raw.githubusercontent.com/curtinlv/gd/main/img/p2.png)
+![图2：完成登录，tg机器人发通知](https://raw.githubusercontent.com/gd0772/qlbot/main/img/p2.png)
 
 - [x] 发送【user?】 给你的机器人，有以下回复，证明你通过号码成功授权登录。
 
-![图3：测试1](https://raw.githubusercontent.com/curtinlv/gd/main/img/p3.png)
+![图3：测试1](https://raw.githubusercontent.com/gd0772/qlbot/main/img/p3.png)
 
 - [x] 在所监控的频道发出变量，机器人会马上通知：
 
-![图4：测试2](https://raw.githubusercontent.com/curtinlv/gd/main/img/p4.png)
+![图4：测试2](https://raw.githubusercontent.com/gd0772/qlbot/main/img/p4.png)
 
 
 
